@@ -1,0 +1,15 @@
+<h1>Login</h1>
+<!-- form_tag is different from form. use for everything besides creating/updating a Model. can use regular HTML form. -->
+<%= form_tag sessions_path do %>
+  <div class="field">
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
+  </div>
+  <div class="field">
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Login' %>
+  </div>
+  <% end %>
