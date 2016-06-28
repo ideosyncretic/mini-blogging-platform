@@ -11,7 +11,6 @@ RSpec.describe 'Signing in' do
 
       fill_in 'Email', with: 'harry@hogwarts.edu'
       fill_in 'Password', with: 'super_secret'
-      fill_in 'Password confirmation', with: 'super_secret'
       click_on 'Sign In'
     end
 

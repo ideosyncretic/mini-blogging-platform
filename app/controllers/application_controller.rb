@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :user_logged_in?
 
   def current_user
-    @c_user ||= User.find( session[:user_id] ) unless session[:user_id].blank?
-    # User.find( session[:user_id] ) unless session[:user_id].blank?
+    # @c_user ||= User.find( session[:user_id] ) unless session[:user_id].blank?
+    User.find( session[:user_id] ) unless session[:user_id].blank?
   end
 
   def user_logged_in?
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     unless user_logged_in?
-      flash[:error] = 'Please login first!'
-      redirect_to login_url
+      flash[:error] = 'You must log in to access this page.'
+      redirect_to home_path
       # use _url inside controllers and _path in views
     end
   end

@@ -5,24 +5,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # firstly, find user by email
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-    # if user.try(:authenticate, params[:password])
-      # successful login
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'Logged In'
+      redirect_to home_path, notice: 'Signed in'
     else
-      flash.now.alert = 'invalid login details'
-      # displays immediately
+      flash.now.alert = "Couldn't sign you in. Please check your email and password."
       render 'new'
-      # immediate, not new request
     end
   end
 
   def destroy
-    # log out user
     session[:user_id] = nil
-    redirect_to root_path, notice: 'Logged Out'
+    redirect_to home_path, notice: 'Signed out'
   end
 end

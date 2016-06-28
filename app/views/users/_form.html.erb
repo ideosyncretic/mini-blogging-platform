@@ -32,6 +32,10 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <% if current_user.present? %>
+      <%= f.submit "Edit User" %>
+    <% else %>
+      <%= f.submit "Sign Up" %>
+    <% end %>
   </div>
 <% end %>

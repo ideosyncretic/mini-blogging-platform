@@ -1,6 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<h1>All Posts</h1>
+
+<% if user_logged_in? %>
+  <h3>Welcome, <%= current_user.name %>, <%= current_user.email %></h3>
+  <%= link_to 'New Post', new_user_post_path(current_user)%>
+  <%= link_to 'Sign Out', sign_out_path, method: :delete %>
+<% else %>
+  <%= link_to 'Sign In', sign_in_path %>
+  <%= link_to 'Sign Up', sign_up_path %>
+<% end %>
 
 <table>
   <thead>
@@ -12,14 +21,14 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="posts">
     <% @posts.each do |post| %>
-      <tr>
+      <tr class="post">
         <td><%= post.user %></td>
         <td><%= post.title %></td>
         <td><%= post.body %></td>
         <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Edit', edit_user_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -27,5 +36,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Post', new_post_path %>
