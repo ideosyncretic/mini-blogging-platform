@@ -15,20 +15,19 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
-    @post.user = current_user
+    @post = current_user.posts.new
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
     @post.user = current_user
     # create post then assign owner
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to user_posts_path(session[:user_id], Post.last), notice: 'Post was successfully created.' }
+        format.html { redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -39,8 +38,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    if @post.user == current_user
-    else
+    if @post.user != current_user
       redirect_to home_path, notice: "This post doesn't belong to you!"
     end
   end
@@ -71,7 +69,7 @@ class PostsController < ApplicationController
     end
   end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       user = User.find(params[:user_id])
@@ -80,6 +78,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:user_id, :title, :body)
     end
+
 end

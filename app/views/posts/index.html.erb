@@ -24,12 +24,12 @@
   <tbody class="posts">
     <% @posts.each do |post| %>
       <tr class="post">
-        <td><%= post.user %></td>
+        <td><%= post.user.name %></td>
         <td><%= post.title %></td>
         <td><%= post.body %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_user_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_post_path(post.user, post) %></td>
+        <td><%= link_to 'Edit', edit_user_post_path(post.user, post) %></td>
+        <td><%= link_to 'Destroy', user_post_path(post.user, post), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
